@@ -12,7 +12,13 @@ Follow this as a reference: https://uoa-eresearch.github.io/eresearch-cookbook/r
 
 
 To get started with running the venv for TalkNow, run the following command:
-`source talknow/bin/activate`
+```
+virtualenv talknow
+source talknow/bin/activate
+pip install -r requirements.txt
+chmod +x start_local.sh
+./start_local.sh
+```
 
 
 ## Starting the app
