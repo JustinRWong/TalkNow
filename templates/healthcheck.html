@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>{% block title %}Healthcheck{% endblock %}</h3>
+<h4>Response:</h4>
+{{ ttr }}
+
+<p>This endpoint will echo your parameters and data. Try making post calls to this endpoint. You will bee echoed below.</p>
+<form method="POST" action="{{ url_for('health_check') }}">
+    <input type="text" id="form_param" name="form_param" placeholder='fill me in'>
+    <input type="submit">
+</form>
+{{ echo }}
+{% endblock %}
