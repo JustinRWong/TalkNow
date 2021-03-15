@@ -1,7 +1,16 @@
 from flask import Flask, Response, request, abort, jsonify, render_template, session
 from src.gateway import *
+from src.models.shared import *
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI']=DB_CONNECTION_STRING
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+
+## set up database session
+session = flask_scoped_session(session_factory, app)
+db.app = app
+db.init_app(app)
+db.create_all()
 
 @app.route('/')
 def index():
@@ -39,3 +48,12 @@ def health_check():
                                 title='Healthcheck',
                                 ttr={'time of response': time.time(), 'date': datetime.now()},
                                 echo=posted)
+
+@app.route('/db_tables')
+def db_tables():
+    print(engine.table_names())
+    building = {}
+    i = 0
+    for tn in engine.table_names():
+        building[i] = tn
+    return building
